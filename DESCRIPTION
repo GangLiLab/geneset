@@ -1,0 +1,25 @@
+Package: geneset
+Type: Package
+Title: Get gene sets for gene enrichment analysis
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Yunze",
+             family = "Liu",
+             role = c("aut", "cre"),
+             email = "jieandze1314@gmail.com",
+             comment = c(ORCID = "0000-0002-7414-8556")))
+Maintainer: Yunze Liu <jieandze1314@gmail.com>
+Description: Geneset package enables querying gene sets from GO, KEGG (pathway, module, enzyme), WikPathway, MsigDb, EnrichrDb and Reactome.
+    Gene sets are stored in the list object which inlcudes data frame of geneset and geneset_name. The geneset data frame has two columns of
+    term ID and gene ID. The geneset_name data frame has two columns of terms ID and term description.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.6)
+Imports: 
+  dplyr,
+  RCurl,
+  fst,
+  stringi,
+  stringr
+RoxygenNote: 7.2.0

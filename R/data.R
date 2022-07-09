@@ -1,0 +1,63 @@
+#' Datasets
+#' go_org contains GO species information
+#'
+#'
+#' @name Datasets
+#' @aliases go_org
+#' @docType data
+#' @keywords datasets
+NULL
+
+#' Datasets
+#' kegg_org contains KEGG species information
+#'
+#'
+#' @name Datasets
+#' @aliases kegg_org
+#' @docType data
+#' @keywords datasets
+NULL
+
+
+#' Datasets
+#' wiki_org contains WikiPathway species information
+#'
+#'
+#' @name Datasets
+#' @aliases wiki_org
+#' @docType data
+#' @keywords datasets
+NULL
+
+
+#' Datasets
+#' msigdb_org contains Msigdb species information
+#'
+#'
+#' @name Datasets
+#' @aliases msigdb_org
+#' @docType data
+#' @keywords datasets
+NULL
+
+
+#' Datasets
+#' enrichr_metadata contains Enrichrdb information
+#'
+#'
+#' @name Datasets
+#' @aliases enrichr_metadata
+#' @docType data
+#' @keywords datasets
+NULL
+
+
+
+
+
+
+
+
+
+
+
