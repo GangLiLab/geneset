@@ -21,6 +21,16 @@ msigdb_org_data <- function() {
   get("msigdb_org", envir = .GlobalEnv)
 }
 
+reactome_org_data <- function() {
+  utils::data(list = "reactome_org", package = "geneset")
+  get("reactome_org", envir = .GlobalEnv)
+}
+
+mesh_org_data <- function() {
+  utils::data(list = "mesh_org", package = "geneset")
+  get("mesh_org", envir = .GlobalEnv)
+}
+
 #############################
 ### Part II: match organism
 #############################
@@ -155,6 +165,74 @@ map_msigdb_org <- function(org) {
   return(org)
 }
 
+#---  get reactome org ---#
+map_reactome_org <- function(org) {
+  org <- tolower(org)
+  if (org == "hg" | org == "human" | org == "hsa" | org == "hs") org <- "homo_sapiens"
+  if (org == "mm" | org == "mouse" | org == "house mouse") org <- "mus_musculus"
+  if (org == "rat" | org == "rn") org <- "rattus_norvegicus"
+  if (org == "fruit fly" | org == "dm") org <- "drosophila_melanogaster"
+
+  orgs <- reactome_org_data()
+  rm(reactome_org, envir = .GlobalEnv)
+
+  if (org %in% tolower(orgs$latin_full_name)) {
+    org <- gsub(' ','_',org)
+  } else if (org %in% gsub(' ','_',tolower(orgs$latin_full_name))) {
+    org <- org
+  } else if (org %in% tolower(orgs$common_name)) {
+    org <- orgs %>%
+      dplyr::filter(tolower(common_name) %in% org) %>%
+      dplyr::pull(latin_full_name) %>%
+      gsub(' ','_',.)
+  } else {
+    stop(
+      "Check organism name in `reactome_org()`! \n USE latin_full_name: e.g. ",
+      paste0(reactome_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(latin_full_name), collapse = " | "),
+      "\n OR USE common_name: e.g. ",
+      paste0(reactome_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(common_name), collapse = " | ")
+    )
+  }
+
+  org <- stringr::str_to_title(org)
+
+  return(org)
+}
+
+#---  get mesh org ---#
+map_mesh_org <- function(org) {
+  org <- tolower(org)
+  if (org == "hg" | org == "human" | org == "hsa" | org == "hs") org <- "hsa"
+  if (org == "mm" | org == "mouse" | org == "house mouse") org <- "mmu"
+  if (org == "rat" | org == "rn") org <- "rno"
+  if (org == "fruit fly" | org == "dm") org <- "dme"
+
+  orgs <- mesh_org_data()
+  rm(mesh_org, envir = .GlobalEnv)
+
+  if (org %in% orgs$mesh_org) {
+    org <- org
+  } else if (org %in% gsub(' ','_',tolower(orgs$latin_full_name))) {
+    org <- orgs %>%
+      dplyr::mutate(latin_full_name = gsub(' ','_',tolower(latin_full_name))) %>%
+      dplyr::filter(latin_full_name %in% org) %>%
+      dplyr::pull(mesh_org)
+  } else if (org %in% tolower(orgs$latin_full_name)) {
+    org <- orgs %>%
+      dplyr::filter(tolower(latin_full_name) %in% org) %>%
+      dplyr::pull(mesh_org)
+  } else {
+    stop(
+      "Check organism name in `mesh_org()`! \n USE mesh_org: e.g. ",
+      paste0(mesh_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(mesh_org), collapse = " | "),
+      "\n OR USE latin_full_name: e.g. ",
+      paste0(mesh_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(latin_full_name), collapse = " | ")
+    )
+  }
+
+  return(org)
+}
+
 #############################
 ### Part III: data query
 #############################
@@ -164,6 +242,11 @@ enrichr_data <- function() {
   get("enrichr_metadata", envir = .GlobalEnv)
 }
 
+#--- get MeSH metadata ---#
+mesh_data <- function() {
+  utils::data(list = "mesh_metadata", package = "geneset")
+  get("mesh_metadata", envir = .GlobalEnv)
+}
 
 #--- get web server file size ---#
 check_web_size <- function(url){

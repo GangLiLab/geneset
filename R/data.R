@@ -52,8 +52,36 @@ NULL
 NULL
 
 
+#' Datasets
+#' reactome_org contains Reactome species information
+#'
+#'
+#' @name Datasets
+#' @aliases reactome_org
+#' @docType data
+#' @keywords datasets
+NULL
 
 
+#' Datasets
+#' mesh_org contains MeSH species information
+#'
+#'
+#' @name Datasets
+#' @aliases mesh_org
+#' @docType data
+#' @keywords datasets
+NULL
+
+#' Datasets
+#' mesh_metadata contains MeSH information
+#'
+#'
+#' @name Datasets
+#' @aliases mesh_metadata
+#' @docType data
+#' @keywords datasets
+NULL
 
 
 

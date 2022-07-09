@@ -8,6 +8,9 @@
 \alias{wiki_org}
 \alias{msigdb_org}
 \alias{enrichr_metadata}
+\alias{reactome_org}
+\alias{mesh_org}
+\alias{mesh_metadata}
 \title{Datasets
 go_org contains GO species information}
 \description{
@@ -25,5 +28,14 @@ msigdb_org contains Msigdb species information
 
 Datasets
 enrichr_metadata contains Enrichrdb information
+
+Datasets
+reactome_org contains Reactome species information
+
+Datasets
+mesh_org contains MeSH species information
+
+Datasets
+mesh_metadata contains MeSH information
 }
 \keyword{datasets}
