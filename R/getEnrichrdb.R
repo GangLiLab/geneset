@@ -18,7 +18,11 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
 
   #--- args ---#
   org <- match.arg(org)
-  if(is.null(library)) stop('Please choose gene set library from: `enrichr_data()`')
+  if(is.null(library)) stop('Please choose gene set library from: `enrichr_metadata`')
+
+  libs <- enrichr_metadata %>% dplyr::filter(organism %in% org) %>%
+    dplyr::pull(library)
+  if(! library %in% libs) stop('Please choose gene set library from: `enrichr_metadata`')
 
   data_dir <- tools::R_user_dir("geneset", which = "data")
   data_dir <- paste0(data_dir, "/anno/enrichrdb/")
@@ -40,6 +44,17 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
     res[[i]] = suppressMessages(fst::read.fst(destfile))
   }
 
+  res[['geneset_name']] <- NA
+
+  #--- add org for other use ---#
+  add_org <- genekitr::ensOrg_name %>%
+    dplyr::filter(tolower(common_name) %in% org) %>%
+    dplyr::pull(latin_short_name)
+  if(length(add_org)==0) add_org = NA
+
+  res$organism <- add_org
+
   invisible(res)
 }
 
+utils::globalVariables(c("enrichr_metadata","organism","latin_short_name"))

@@ -20,13 +20,12 @@ getKEGG <- function(org = 'hsa',
 
   #--- args ---#
   category <- match.arg(category)
-  # category <- tolower(category)
-  if(category %in% c('disease','drug','network')){
-    message(paste0("The categoty ",category, ' only support human...'))
-    org <- 'human'
-  }
-
   org <- map_kegg_org(org)
+
+  # category <- tolower(category)
+  if(category %in% c('disease','drug','network') & org != 'hsa'){
+    stop(paste0('The categoty "',category, '" only support human...'))
+  }
 
   data_dir <- tools::R_user_dir("geneset", which = "data")
   data_dir <- paste0(data_dir, "/anno/kegg/", category)
@@ -48,8 +47,20 @@ getKEGG <- function(org = 'hsa',
     res[[i]] = suppressMessages(fst::read.fst(destfile))
   }
 
+  #--- add org for other use ---#
+  org2 <- geneset::kegg_org %>%
+    dplyr::filter(kegg_name %in% org) %>%
+    dplyr::pull(latin_full_name)
+
+  add_org <- genekitr::ensOrg_name %>%
+    dplyr::filter(latin_full_name %in% org2) %>%
+    dplyr::pull(latin_short_name)
+  if(length(add_org)==0) add_org = NA
+
+  res$organism <- add_org
+
   invisible(res)
 }
 
-utils::globalVariables(c("kegg_name", "kegg_org"))
+utils::globalVariables(c("kegg_name", "kegg_org","latin_short_name"))
 

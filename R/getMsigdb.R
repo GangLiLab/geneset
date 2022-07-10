@@ -47,7 +47,18 @@ getMsigdb <- function(org = 'human',
     res[[i]] = suppressMessages(fst::read.fst(destfile))
   }
 
+  res[['geneset_name']] <- NA
+
+  #--- add org for other use ---#
+  org2 <- gsub('_',' ',org)
+  add_org <- genekitr::ensOrg_name %>%
+    dplyr::filter(latin_full_name %in% org2) %>%
+    dplyr::pull(latin_short_name)
+  if(length(add_org)==0) add_org = NA
+
+  res$organism <- add_org
+
   invisible(res)
 }
 
-utils::globalVariables(c("msigdb_org"))
+utils::globalVariables(c("msigdb_org","latin_short_name"))

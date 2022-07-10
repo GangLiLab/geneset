@@ -55,7 +55,12 @@ getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19')
     geneset_download(url, destfile, method = download.method,
                      data_dir, web_f_size, local_f_size)
     res[[i]] = suppressMessages(fst::read.fst(destfile))
+  }else{
+    res[['geneset_name']] <- NA
   }
+
+  #--- add org for other use ---#
+  res$organism <- 'hsapiens'
 
   invisible(res)
 }

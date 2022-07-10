@@ -44,9 +44,20 @@ getGO <- function(org = "human",
     res[[i]] = suppressMessages(fst::read.fst(destfile))
   }
 
+  #--- add org for other use ---#
+  org2 <- geneset::go_org %>%
+    dplyr::filter(common_name %in% org) %>%
+    dplyr::pull(latin_full_name)
+  add_org <- genekitr::ensOrg_name %>%
+    dplyr::filter(latin_full_name %in% org2) %>%
+    dplyr::pull(latin_short_name)
+  if(length(add_org)==0) add_org = NA
+
+  res$organism <- add_org
+
   invisible(res)
 }
 
 
-utils::globalVariables(c("common_name", "go_org", "latin_full_name"))
+utils::globalVariables(c("common_name", "go_org", "latin_full_name","latin_short_name"))
 
