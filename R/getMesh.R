@@ -75,4 +75,4 @@ getMesh <- function(org = 'human',
   invisible(res)
 }
 
-utils::globalVariables(c("mesh_org"))
+utils::globalVariables(c("mesh_org",'mesh_metadata'))

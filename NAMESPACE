@@ -2,6 +2,7 @@
 
 export(getEnrichrdb)
 export(getGO)
+export(getHgDisease)
 export(getKEGG)
 export(getMesh)
 export(getMsigdb)
