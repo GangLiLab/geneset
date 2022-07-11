@@ -45,10 +45,11 @@ getGO <- function(org = "human",
   }
 
   #--- add org for other use ---#
+  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
   org2 <- geneset::go_org %>%
     dplyr::filter(common_name %in% org) %>%
     dplyr::pull(latin_full_name)
-  add_org <- genekitr::ensOrg_name %>%
+  add_org <- ensOrg_name %>%
     dplyr::filter(latin_full_name %in% org2) %>%
     dplyr::pull(latin_short_name)
   if(length(add_org)==0) add_org = NA

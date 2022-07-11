@@ -47,7 +47,8 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
   res[['geneset_name']] <- NA
 
   #--- add org for other use ---#
-  add_org <- genekitr::ensOrg_name %>%
+  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
+  add_org <- ensOrg_name %>%
     dplyr::filter(tolower(common_name) %in% org) %>%
     dplyr::pull(latin_short_name)
   if(length(add_org)==0) add_org = NA
@@ -59,4 +60,4 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
   invisible(res)
 }
 
-utils::globalVariables(c("enrichr_metadata","organism","latin_short_name"))
+utils::globalVariables(c("enrichr_metadata","organism","latin_short_name","ensOrg_name"))

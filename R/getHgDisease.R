@@ -43,7 +43,7 @@ getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19')
     res[[i]] = suppressMessages(fst::read.fst(destfile))
   }
 
-  if(source == 'do'){
+  if(source %in% c('do','disgenet')){
     i = "geneset_name"
     url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/hgdisease/',
                   source,'/human_',i,".fst")
