@@ -1,6 +1,6 @@
 Package: geneset
 Type: Package
-Title: Get gene sets for gene enrichment analysis
+Title: Get Gene Sets for Gene Enrichment Analysis
 Version: 0.2.0
 Authors@R: 
     c(person(given = "Yunze",

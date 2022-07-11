@@ -59,6 +59,8 @@ getKEGG <- function(org = 'hsa',
 
   res$organism <- add_org
 
+  res$type <- 'kegg'
+
   invisible(res)
 }
 

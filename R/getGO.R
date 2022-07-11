@@ -55,6 +55,8 @@ getGO <- function(org = "human",
 
   res$organism <- add_org
 
+  res$type <- 'go'
+
   invisible(res)
 }
 

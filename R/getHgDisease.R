@@ -62,6 +62,8 @@ getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19')
   #--- add org for other use ---#
   res$organism <- 'hsapiens'
 
+  res$type <- source
+
   invisible(res)
 }
 

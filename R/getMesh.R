@@ -83,6 +83,8 @@ getMesh <- function(org = 'human',
 
   res$organism <- add_org
 
+  res$type <- 'mesh'
+
   invisible(res)
 }
 

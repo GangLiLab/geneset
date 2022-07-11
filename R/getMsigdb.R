@@ -58,6 +58,8 @@ getMsigdb <- function(org = 'human',
 
   res$organism <- add_org
 
+  res$type <- 'msigdb'
+
   invisible(res)
 }
 

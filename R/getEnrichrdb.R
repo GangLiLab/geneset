@@ -54,6 +54,8 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
 
   res$organism <- add_org
 
+  res$type <- 'enrichrdb'
+
   invisible(res)
 }
 
