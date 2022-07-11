@@ -84,7 +84,15 @@ NULL
 NULL
 
 
-
+#' Datasets
+#' org2cate contains all organism to category information
+#'
+#'
+#' @name Datasets
+#' @aliases org2cate
+#' @docType data
+#' @keywords datasets
+NULL
 
 
 

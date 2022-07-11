@@ -11,6 +11,7 @@
 \alias{reactome_org}
 \alias{mesh_org}
 \alias{mesh_metadata}
+\alias{org2cate}
 \title{Datasets
 go_org contains GO species information}
 \description{
@@ -37,5 +38,8 @@ mesh_org contains MeSH species information
 
 Datasets
 mesh_metadata contains MeSH information
+
+Datasets
+org2cate contains all organism to category information
 }
 \keyword{datasets}

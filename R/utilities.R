@@ -31,6 +31,11 @@ mesh_org_data <- function() {
   get("mesh_org", envir = .GlobalEnv)
 }
 
+org2cate_data <- function() {
+  utils::data(list = "org2cate", package = "geneset")
+  get("org2cate", envir = .GlobalEnv)
+}
+
 #############################
 ### Part II: match organism
 #############################
