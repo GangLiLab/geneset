@@ -17,10 +17,14 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
                          download.method = NULL) {
 
   #--- args ---#
-  org <- match.arg(org)
+  # org <- match.arg(org)
   if(is.null(library)) stop('Please choose gene set library from: `enrichr_metadata`')
 
-  libs <- enrichr_metadata %>% dplyr::filter(organism %in% org) %>%
+  org <- map_enrichrdb_org(org)
+
+
+
+  libs <- geneset::enrichr_metadata %>% dplyr::filter(organism %in% org) %>%
     dplyr::pull(library)
   if(! library %in% libs) stop('Please choose gene set library from: `enrichr_metadata`')
 

@@ -42,12 +42,13 @@ org2cate_data <- function() {
 #---  get go org ---#
 map_go_org <- function(org) {
   org <- tolower(org)
-  if (org == "hg" | org == "human" | org == "hsa" | org == "hs") org <- "human"
-  if (org == "mm" | org == "mouse") org <- "mouse"
-  if (org == "rat" | org == "rn") org <- "rat"
+  if (org == "hg" | org == "human" | org == "hsa" | org == "hs" | org == "homo sapiens") org <- "human"
+  if (org == "mm" | org == "mouse" | org == "mus musculus") org <- "mouse"
+  if (org == "rat" | org == "rn" | org == 'rattus norvegicus') org <- "rat"
 
   orgs <- go_org_data()
   rm(go_org, envir = .GlobalEnv)
+  orgs <- apply(orgs, 2, tolower) %>% as.data.frame()
 
   if (org %in% orgs$common_name) {
     org <- org
@@ -57,7 +58,7 @@ map_go_org <- function(org) {
       dplyr::pull(common_name)
   } else {
     stop(
-      "Check organism name in `go_org()`! \n USE latin_full_name: e.g. ",
+      "Check organism name in `go_org`! \n USE latin_full_name: e.g. ",
       paste0(go_org_data() %>% dplyr::slice_head(n=5)  %>% dplyr::pull(latin_full_name), collapse = " | "),
       "\n OR USE common_name: e.g. ",
       paste0(go_org_data() %>% dplyr::slice_head(n=5)  %>% dplyr::pull(common_name), collapse = " | ")
@@ -70,27 +71,28 @@ map_go_org <- function(org) {
 #---  get kegg org ---#
 map_kegg_org <- function(org) {
   org <- tolower(org)
-  if (org == "hg" | org == "human" | org == "hsa" | org == "hs") org <- "hsa"
-  if (org == "mm" | org == "mouse" | org == "house mouse") org <- "mmu"
-  if (org == "rat" | org == "rn") org <- "rno"
-  if (org == "fruit fly" | org == "dm") org <- "dme"
+  if (org == "hg" | org == "human" | org == "hsa" | org == "hs"| org == "homo sapiens") org <- "hsa"
+  if (org == "mm" | org == "mouse" | org == "house mouse" | org == "mus musculus") org <- "mmu"
+  if (org == "rat" | org == "rn"| org == 'rattus norvegicus') org <- "rno"
+  if (org == "fruit fly" | org == "dm" | org == 'drosophila melanogaster') org <- "dme"
 
   orgs <- kegg_org_data()
   rm(kegg_org, envir = .GlobalEnv)
+  orgs <- apply(orgs, 2, tolower) %>% as.data.frame()
 
   if (org %in% orgs$kegg_name) {
     org <- org
-  } else if (org %in% tolower(orgs$latin_full_name)) {
+  } else if (org %in% orgs$latin_full_name) {
     org <- orgs %>%
       dplyr::filter(latin_full_name %in% org) %>%
       dplyr::pull(kegg_name)
-  } else if (org %in% tolower(orgs$common_name)) {
+  } else if (org %in% orgs$common_name) {
     org <- orgs %>%
       dplyr::filter(common_name %in% org) %>%
       dplyr::pull(kegg_name)
   } else {
     stop(
-      "Check organism name in `kegg_org()`! \n USE kegg_name: e.g. ",
+      "Check organism name in `kegg_org`! \n USE kegg_name: e.g. ",
       paste0(kegg_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(kegg_name), collapse = " | "),
       "\n OR USE latin_full_name: e.g. ",
       paste0(kegg_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(latin_full_name), collapse = " | "),
@@ -124,7 +126,7 @@ map_wiki_org <- function(org) {
       gsub(' ','_',.)
   } else {
     stop(
-      "Check organism name in `wiki_org()`! \n USE latin_full_name: e.g. ",
+      "Check organism name in `wiki_org`! \n USE latin_full_name: e.g. ",
       paste0(wiki_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(latin_full_name), collapse = " | "),
       "\n OR USE common_name: e.g. ",
       paste0(wiki_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(common_name), collapse = " | ")
@@ -158,7 +160,7 @@ map_msigdb_org <- function(org) {
       gsub(' ','_',.)
   } else {
     stop(
-      "Check organism name in `msigdb_org()`! \n USE latin_full_name: e.g. ",
+      "Check organism name in `msigdb_org`! \n USE latin_full_name: e.g. ",
       paste0(msigdb_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(latin_full_name), collapse = " | "),
       "\n OR USE common_name: e.g. ",
       paste0(msigdb_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(common_name), collapse = " | ")
@@ -192,7 +194,7 @@ map_reactome_org <- function(org) {
       gsub(' ','_',.)
   } else {
     stop(
-      "Check organism name in `reactome_org()`! \n USE latin_full_name: e.g. ",
+      "Check organism name in `reactome_org`! \n USE latin_full_name: e.g. ",
       paste0(reactome_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(latin_full_name), collapse = " | "),
       "\n OR USE common_name: e.g. ",
       paste0(reactome_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(common_name), collapse = " | ")
@@ -207,20 +209,20 @@ map_reactome_org <- function(org) {
 #---  get mesh org ---#
 map_mesh_org <- function(org) {
   org <- tolower(org)
-  if (org == "hg" | org == "human" | org == "hsa" | org == "hs") org <- "hsa"
-  if (org == "mm" | org == "mouse" | org == "house mouse") org <- "mmu"
-  if (org == "rat" | org == "rn") org <- "rno"
-  if (org == "fruit fly" | org == "dm") org <- "dme"
+  if (org == "hg" | org == "human" | org == "hsa" | org == "hs" | org == "homo sapiens") org <- "hsa"
+  if (org == "mm" | org == "mouse" | org == "house mouse"| org == "mus musculus") org <- "mmu"
+  if (org == "rat" | org == "rn" | org == 'rattus norvegicus') org <- "rno"
+  if (org == "fruit fly" | org == "dm" | org == 'drosophila melanogaster') org <- "dme"
 
   orgs <- mesh_org_data()
   rm(mesh_org, envir = .GlobalEnv)
+  # orgs$latin_full_name <- tolower(orgs$latin_full_name)
 
   if (org %in% orgs$mesh_org) {
     org <- org
   } else if (org %in% gsub(' ','_',tolower(orgs$latin_full_name))) {
     org <- orgs %>%
-      dplyr::mutate(latin_full_name = gsub(' ','_',tolower(latin_full_name))) %>%
-      dplyr::filter(latin_full_name %in% org) %>%
+      dplyr::filter(gsub(' ','_',tolower(orgs$latin_full_name))%in% org) %>%
       dplyr::pull(mesh_org)
   } else if (org %in% tolower(orgs$latin_full_name)) {
     org <- orgs %>%
@@ -228,12 +230,24 @@ map_mesh_org <- function(org) {
       dplyr::pull(mesh_org)
   } else {
     stop(
-      "Check organism name in `mesh_org()`! \n USE mesh_org: e.g. ",
+      "Check organism name in `mesh_org`! \n USE mesh_org: e.g. ",
       paste0(mesh_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(mesh_org), collapse = " | "),
       "\n OR USE latin_full_name: e.g. ",
       paste0(mesh_org_data() %>% dplyr::slice_head(n=5) %>% dplyr::pull(latin_full_name), collapse = " | ")
     )
   }
+
+  return(org)
+}
+
+#---  get enrichrdb org ---#
+map_enrichrdb_org <- function(org) {
+  org <- tolower(org)
+  if (org == "hg" | org == "human" | org == "hsa" | org == "hs" | org == "homo sapiens") org <- "human"
+  if (org == "fly" | org == "fruit fly" | org == "dm" | org == 'drosophila melanogaster') org <- "fly"
+  if (org == "worm" | org == "ce" | org == 'caenorhabditis elegans') org <- "worm"
+  if (org == "yeast" | org == "sc" | org == 'saccharomyces cerevisiae') org <- "yeast"
+  if (org == "zebrafish" | org == "dr" | org == 'danio rerio') org <- "zebrafish"
 
   return(org)
 }
