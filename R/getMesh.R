@@ -39,15 +39,15 @@ getMesh <- function(org = 'human',
 
 
   data_dir <- tools::R_user_dir("geneset", which = "data")
-  data_dir <- paste0(data_dir, "/anno/mesh/")
+  sub_dir <- "/anno/mesh/"
+  data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
 
   #--- download ---#
   res <- list()
   # geneset
   i = 'geneset'
-  url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/mesh/',
-                org,"/",org,'_',method,'_',category,'_',i,".fst")
+  url <- paste0(web.url(),sub_dir,org,"/",org,'_',method,'_',category,'_',i,".fst")
   destfile <- paste0(data_dir, "/", org,'_',method,'_',category, "_",i,".fst")
   web_f_size <- check_web_size(url)
   local_f_size <- file.size(destfile)
@@ -61,8 +61,7 @@ getMesh <- function(org = 'human',
 
   # geneset_name
   n = 'geneset_name'
-  url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/mesh/',
-                             org,"/",org,"_",n,".fst")
+  url <- paste0(web.url(),sub_dir,org,"/",org,"_",n,".fst")
   destfile <- paste0(data_dir, "/", org,'_',n,".fst")
   web_f_size <- check_web_size(url)
   local_f_size <- file.size(destfile)

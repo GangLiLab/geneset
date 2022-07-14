@@ -29,15 +29,15 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
   if(! library %in% libs) stop('Please choose gene set library from: `enrichr_metadata`')
 
   data_dir <- tools::R_user_dir("geneset", which = "data")
-  data_dir <- paste0(data_dir, "/anno/enrichrdb/")
+  sub_dir <- "/anno/enrichrdb/"
+  data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
 
   #--- download ---#
   res <- list()
   for(i in c("geneset")){
     # i = 'geneset'
-    url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/enrichrdb/',
-                  org,"/",library,"_",i,".fst")
+    url <- paste0(web.url(),sub_dir, org,"/",library,"_",i,".fst")
     destfile <- paste0(data_dir, "/", org, "_",library,"_",i,".fst")
     web_f_size <- check_web_size(url)
     local_f_size <- file.size(destfile)

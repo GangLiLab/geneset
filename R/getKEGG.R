@@ -28,15 +28,15 @@ getKEGG <- function(org = 'hsa',
   }
 
   data_dir <- tools::R_user_dir("geneset", which = "data")
-  data_dir <- paste0(data_dir, "/anno/kegg/", category)
+  sub_dir <- "/anno/kegg/"
+  data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
 
   #--- download ---#
   res <- list()
   for(i in c("geneset","geneset_name")){
     # i = 'geneset'
-    url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/kegg/',
-                  category,'/',org,"_",i,".fst")
+    url <- paste0(web.url(),sub_dir,category,'/',org,"_",i,".fst")
     destfile <- paste0(data_dir, "/", org, "_",i,".fst")
     web_f_size <- check_web_size(url)
     local_f_size <- file.size(destfile)

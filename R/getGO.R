@@ -25,15 +25,15 @@ getGO <- function(org = "human",
   org <- map_go_org(org)
 
   data_dir <- tools::R_user_dir("geneset", which = "data")
-  data_dir <- paste0(data_dir, "/anno/go/", ont)
+  sub_dir <- "/anno/go/"
+  data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
 
   #--- download ---#
   res <- list()
   for(i in c("geneset","geneset_name")){
     # i = 'geneset'
-    url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/go/',
-                  ont,'/',org,'_',ont,"_",i,".fst")
+    url <- paste0(web.url(),sub_dir,ont,'/',org,'_',ont,"_",i,".fst")
     destfile <- paste0(data_dir, "/", org, "_",ont,"_",i,".fst")
     web_f_size <- check_web_size(url)
     local_f_size <- file.size(destfile)

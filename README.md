@@ -1,6 +1,6 @@
 # Genset
 
-[![](https://img.shields.io/badge/devel%20version-0.2.2-green.svg)](https://github.com/GangLiLab/genekitr)  [![lifecycle](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) 
+[![](https://img.shields.io/badge/devel%20version-0.2.3-green.svg)](https://github.com/GangLiLab/genekitr)  [![lifecycle](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) 
 
 ![Alt](https://repobeats.axiom.co/api/embed/1398fe8b05f49210229b9c8bca9b50a59337a7f7.svg "Repobeats analytics image")
 

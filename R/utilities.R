@@ -353,8 +353,11 @@ geneset_download <- function(url, destfile,data_dir,
   }
 }
 
-
-
+#--- web url ---#
+web.url <- function(){
+  x = "https://genekitr-china.oss-accelerate.aliyuncs.com"
+  return(x)
+}
 
 
 

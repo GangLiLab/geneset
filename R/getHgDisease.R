@@ -21,7 +21,8 @@ getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19')
   source <- match.arg(source)
 
   data_dir <- tools::R_user_dir("geneset", which = "data")
-  data_dir <- paste0(data_dir, "/anno/hgdisease/")
+  sub_dir <- "/anno/hgdisease/"
+  data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
 
   #--- download ---#
@@ -31,8 +32,7 @@ getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19')
 
   for(i in c("geneset")){
     # i = 'geneset'
-    url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/hgdisease/',
-                  source,'/human_',i,".fst")
+    url <- paste0(web.url(),sub_dir,source,'/human_',i,".fst")
     destfile <- paste0(save_dir, "/human_",i,".fst")
     web_f_size <- check_web_size(url)
     local_f_size <- file.size(destfile)
@@ -45,8 +45,7 @@ getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19')
 
   if(source %in% c('do','disgenet')){
     i = "geneset_name"
-    url <- paste0('https://genekitr-china.oss-accelerate.aliyuncs.com/anno/hgdisease/',
-                  source,'/human_',i,".fst")
+    url <- paste0(web.url(),sub_dir,source,'/human_',i,".fst")
     destfile <- paste0(save_dir, "/human_",i,".fst")
     web_f_size <- check_web_size(url)
     local_f_size <- file.size(destfile)
