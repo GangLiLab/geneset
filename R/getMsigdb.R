@@ -44,7 +44,7 @@ getMsigdb <- function(org = 'human',
 
     geneset_download(url, destfile, method = download.method,
                      data_dir, web_f_size, local_f_size)
-    res[[i]] = suppressMessages(fst::read.fst(destfile))
+    res[[i]] = suppressWarnings(fst::read.fst(destfile))
   }
 
   res[['geneset_name']] <- NA

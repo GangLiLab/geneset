@@ -55,7 +55,7 @@ getMesh <- function(org = 'human',
 
   geneset_download(url, destfile, method = download.method,
                    data_dir, web_f_size, local_f_size)
-  res[[i]] = suppressMessages(fst::read.fst(destfile)) %>%
+  res[[i]] = suppressWarnings(fst::read.fst(destfile)) %>%
     dplyr::select(1,2) %>%
     dplyr::arrange(1)
 
@@ -69,7 +69,7 @@ getMesh <- function(org = 'human',
 
   geneset_download(url, destfile, method = download.method,
                    data_dir, web_f_size, local_f_size)
-  res[[n]] = suppressMessages(fst::read.fst(destfile))
+  res[[n]] = suppressWarnings(fst::read.fst(destfile))
 
   #--- add org for other use ---#
   tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
