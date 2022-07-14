@@ -20,6 +20,8 @@ It includes [GO](http://geneontology.org/) (BP, CC and MF), [KEGG](https://www.k
 
 #### Supported organisms
 
+> For more details, please refer to [this site](https://genekitr.online/docs/species.html).
+
 - GO supports **143** species
 - KEGG supports **8213** species
 - MeSH supports **71** species
