@@ -6,7 +6,12 @@
 Geneset is a data.frame of 2 columns with term id and gene id;
 Geneset_name is a data.frame of 2 columns with term id and term description}
 \usage{
-getGO(org = "human", ont = c("bp", "cc", "mf"), download.method = NULL)
+getGO(
+  org = "human",
+  ont = c("bp", "cc", "mf"),
+  download.method = NULL,
+  data_dir = NULL
+)
 }
 \arguments{
 \item{org}{Organism name from `go_org`.}
@@ -14,6 +19,8 @@ getGO(org = "human", ont = c("bp", "cc", "mf"), download.method = NULL)
 \item{ont}{One of "bp","cc" or "mf" ontology.}
 
 \item{download.method}{"auto" (as default if NULL), "wininet" (for windows)}
+
+\item{data_dir}{data saving location, default is the package data directory}
 }
 \value{
 A list including geneset and geneset name.
@@ -24,7 +31,7 @@ Geneset is a data.frame of 2 columns with term id and gene id;
 Geneset_name is a data.frame of 2 columns with term id and term description
 }
 \examples{
-\dontrun{
-x = getGO(org = "human",ont = "mf")
+\donttest{
+x = getGO(org = "human",ont = "mf", data_dir = tempdir())
 }
 }

@@ -4,17 +4,20 @@
 #' @param org Organism from 'human','fly','yeast','worm','zebrafish'.
 #' @param library Choose one library name from `enrichr_metadata`.
 #' @param download.method "auto" (as default if NULL), "wininet" (for windows)
+#' @param data_dir data saving location, default is the package data directory
 #' @importFrom dplyr %>% filter pull
 #'
 #' @return A list including geneset and geneset name.
 #' @export
 #' @examples
-#' \dontrun{
-#' x = getEnrichrdb(org = "human", library = "COVID-19_Related_Gene_Sets")
+#' \donttest{
+#' x = getEnrichrdb(org = "human", library = "COVID-19_Related_Gene_Sets",
+#' data_dir = tempdir())
 #' }
 getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
                          library = NULL,
-                         download.method = NULL) {
+                         download.method = NULL,
+                         data_dir = NULL) {
 
   #--- args ---#
   # org <- match.arg(org)
@@ -22,13 +25,13 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
 
   org <- map_enrichrdb_org(org)
 
-
-
   libs <- geneset::enrichr_metadata %>% dplyr::filter(organism %in% org) %>%
     dplyr::pull(library)
   if(! library %in% libs) stop('Please choose gene set library from: `enrichr_metadata`')
 
-  data_dir <- tools::R_user_dir("geneset", which = "data")
+  if(is.null(data_dir)){
+    data_dir <- tools::R_user_dir("geneset", which = "data")
+  }
   sub_dir <- "/anno/enrichrdb/"
   data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
@@ -51,7 +54,8 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
   res[['geneset_name']] <- NA
 
   #--- add org for other use ---#
-  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
+  ensOrg_name <- ensOrg_name_data()
+  rm(ensOrg_name, envir = .genesetEnv)
   add_org <- ensOrg_name %>%
     dplyr::filter(tolower(common_name) %in% org) %>%
     dplyr::pull(latin_short_name)

@@ -5,17 +5,19 @@
 #' @param org Organism name from `go_org`.
 #' @param ont One of "bp","cc" or "mf" ontology.
 #' @param download.method "auto" (as default if NULL), "wininet" (for windows)
+#' @param data_dir data saving location, default is the package data directory
 #' @importFrom dplyr %>% filter pull
 #'
 #' @return A list including geneset and geneset name.
 #' @export
 #' @examples
-#' \dontrun{
-#' x = getGO(org = "human",ont = "mf")
+#' \donttest{
+#' x = getGO(org = "human",ont = "mf", data_dir = tempdir())
 #' }
 getGO <- function(org = "human",
                   ont = c("bp","cc","mf"),
-                  download.method = NULL) {
+                  download.method = NULL,
+                  data_dir = NULL) {
 
   #--- args ---#
   ont <- match.arg(ont)
@@ -24,7 +26,9 @@ getGO <- function(org = "human",
   #   stop('Please choose "ont" from "bp", "cc" or "mf".')
   org <- map_go_org(org)
 
-  data_dir <- tools::R_user_dir("geneset", which = "data")
+  if(is.null(data_dir)){
+    data_dir <- tools::R_user_dir("geneset", which = "data")
+  }
   sub_dir <- "/anno/go/"
   data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
@@ -45,7 +49,8 @@ getGO <- function(org = "human",
   }
 
   #--- add org for other use ---#
-  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
+  ensOrg_name <- ensOrg_name_data()
+  rm(ensOrg_name, envir = .genesetEnv)
   org2 <- geneset::go_org %>%
     dplyr::filter(common_name %in% org) %>%
     dplyr::pull(latin_full_name)

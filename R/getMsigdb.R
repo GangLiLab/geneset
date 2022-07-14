@@ -7,13 +7,14 @@
 #' "C3-TFT-TFT_Legacy","C4-CGN", "C4-CM", "C5-GO-BP", "C5-GO-CC", "C5-GO-MF","C5-HPO", "C6",
 #' "C7-IMMUNESIGDB", "C7-VAX", "C8" (refer to: http://www.gsea-msigdb.org/gsea/msigdb/collections.jsp)
 #' @param download.method "auto" (as default if NULL), "wininet" (for windows)
+#' @param data_dir data saving location, default is the package data directory
 #' @importFrom dplyr %>% filter pull
 #'
 #' @return A list including geneset.
 #' @export
 #' @examples
-#' \dontrun{
-#' x = getMsigdb(org = "human", category = "H")
+#' \donttest{
+#' x = getMsigdb(org = "human", category = "H", data_dir = tempdir())
 #' }
 getMsigdb <- function(org = 'human',
                       category = c("H", "C1", "C2-CGP", "C2-CP-BIOCARTA", "C2-CP-KEGG", "C2-CP-PID",
@@ -21,13 +22,16 @@ getMsigdb <- function(org = 'human',
                                    "C3-MIR-MIR_Legacy", "C3-TFT-GTRD", "C3-TFT-TFT_Legacy",
                                    "C4-CGN", "C4-CM", "C5-GO-BP", "C5-GO-CC", "C5-GO-MF",
                                    "C5-HPO", "C6", "C7-IMMUNESIGDB", "C7-VAX", "C8"),
-                      download.method = NULL) {
+                      download.method = NULL,
+                      data_dir = NULL) {
 
   #--- args ---#
   category <- match.arg(category)
   org <- map_msigdb_org(org)
 
-  data_dir <- tools::R_user_dir("geneset", which = "data")
+  if(is.null(data_dir)){
+    data_dir <- tools::R_user_dir("geneset", which = "data")
+  }
   sub_dir <- "/anno/msigdb/"
   data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
@@ -50,7 +54,8 @@ getMsigdb <- function(org = 'human',
   res[['geneset_name']] <- NA
 
   #--- add org for other use ---#
-  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
+  ensOrg_name <- ensOrg_name_data()
+  rm(ensOrg_name, envir = .genesetEnv)
   org2 <- gsub('_',' ',org)
   add_org <- ensOrg_name %>%
     dplyr::filter(latin_full_name %in% org2) %>%

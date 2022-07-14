@@ -9,7 +9,8 @@ Geneset_name is a data.frame of 2 columns with term id and term description}
 getKEGG(
   org = "hsa",
   category = c("pathway", "module", "enzyme", "disease", "drug", "network"),
-  download.method = NULL
+  download.method = NULL,
+  data_dir = NULL
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ getKEGG(
 'disease' (human only),'drug' (human only) or 'network' (human only)}
 
 \item{download.method}{"auto" (as default if NULL), "wininet" (for windows)}
+
+\item{data_dir}{data saving location, default is the package data directory}
 }
 \value{
 A list including geneset and geneset name.
@@ -29,7 +32,7 @@ Geneset is a data.frame of 2 columns with term id and gene id;
 Geneset_name is a data.frame of 2 columns with term id and term description
 }
 \examples{
-\dontrun{
-x = getKEGG(org = "hsa",category = "pathway")
+\donttest{
+x = getKEGG(org = "hsa",category = "pathway", data_dir = tempdir())
 }
 }

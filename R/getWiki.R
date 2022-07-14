@@ -4,21 +4,25 @@
 #'
 #' @param org Organism name from `wiki_org`.
 #' @param download.method "auto" (as default if NULL), "wininet" (for windows)
+#' @param data_dir data saving location, default is the package data directory
 #' @importFrom dplyr %>% filter pull
 #'
 #' @return A list including geneset and geneset name.
 #' @export
 #' @examples
-#' \dontrun{
-#' x = getWiki(org = "human")
+#' \donttest{
+#' x = getWiki(org = "human", data_dir = tempdir())
 #' }
 getWiki <- function(org = 'human',
-                    download.method = NULL) {
+                    download.method = NULL,
+                    data_dir = NULL) {
 
   #--- args ---#
   org <- map_wiki_org(org)
 
-  data_dir <- tools::R_user_dir("geneset", which = "data")
+  if(is.null(data_dir)){
+    data_dir <- tools::R_user_dir("geneset", which = "data")
+  }
   sub_dir <- "/anno/wikipathway/"
   data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
@@ -39,7 +43,8 @@ getWiki <- function(org = 'human',
   }
 
   #--- add org for other use ---#
-  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
+  ensOrg_name <- ensOrg_name_data()
+  rm(ensOrg_name, envir = .genesetEnv)
   org2 <- gsub('_',' ',org)
   add_org <- ensOrg_name %>%
     dplyr::filter(latin_full_name %in% org2) %>%

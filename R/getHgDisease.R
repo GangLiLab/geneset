@@ -6,21 +6,25 @@
 #'
 #' @param source Choose from 'do','ncg_v7','ncg_v6','disgenet','covid19'.
 #' @param download.method "auto" (as default if NULL), "wininet" (for windows)
+#' @param data_dir data saving location, default is the package data directory
 #' @importFrom dplyr %>% filter pull
 #'
 #' @return A list.
 #' @export
 #' @examples
-#' \dontrun{
-#' x = getHgDisease(source = "do")
+#' \donttest{
+#' x = getHgDisease(source = "do", data_dir = tempdir())
 #' }
 getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19'),
-                         download.method = NULL) {
+                         download.method = NULL,
+                         data_dir = NULL) {
 
   #--- args ---#
   source <- match.arg(source)
 
-  data_dir <- tools::R_user_dir("geneset", which = "data")
+  if(is.null(data_dir)){
+    data_dir <- tools::R_user_dir("geneset", which = "data")
+  }
   sub_dir <- "/anno/hgdisease/"
   data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)

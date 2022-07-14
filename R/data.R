@@ -94,6 +94,22 @@ NULL
 #' @keywords datasets
 NULL
 
+#' Datasets
+#' org2cate contains all organism to category information
+#'
+#'
+#' @name Datasets
+#' @aliases org2cate
+#' @docType data
+#' @keywords datasets
+NULL
 
-
-
+#' Datasets
+#' ensOrg_name contains organism name of ensembl
+#'
+#'
+#' @name Datasets
+#' @aliases ensOrg_name
+#' @docType data
+#' @keywords datasets
+NULL

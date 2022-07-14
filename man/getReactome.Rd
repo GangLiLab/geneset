@@ -6,12 +6,14 @@
 Geneset is a data.frame of 2 columns with term id and gene id;
 Geneset_name is a data.frame of 2 columns with term id and term description}
 \usage{
-getReactome(org = "human", download.method = NULL)
+getReactome(org = "human", download.method = NULL, data_dir = NULL)
 }
 \arguments{
 \item{org}{Organism name from `reactome_org`.}
 
 \item{download.method}{"auto" (as default if NULL), "wininet" (for windows)}
+
+\item{data_dir}{data saving location, default is the package data directory}
 }
 \value{
 A list including geneset and geneset name.
@@ -22,7 +24,7 @@ Geneset is a data.frame of 2 columns with term id and gene id;
 Geneset_name is a data.frame of 2 columns with term id and term description
 }
 \examples{
-\dontrun{
-x = getReactome(org = "human")
+\donttest{
+x = getReactome(org = "human", data_dir = tempdir())
 }
 }

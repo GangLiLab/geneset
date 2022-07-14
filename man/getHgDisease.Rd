@@ -10,13 +10,16 @@ Geneset_name is a data.frame of 2 columns with term id and term description}
 \usage{
 getHgDisease(
   source = c("do", "disgenet", "ncg_v7", "ncg_v6", "covid19"),
-  download.method = NULL
+  download.method = NULL,
+  data_dir = NULL
 )
 }
 \arguments{
 \item{source}{Choose from 'do','ncg_v7','ncg_v6','disgenet','covid19'.}
 
 \item{download.method}{"auto" (as default if NULL), "wininet" (for windows)}
+
+\item{data_dir}{data saving location, default is the package data directory}
 }
 \value{
 A list.
@@ -29,7 +32,7 @@ Geneset is a data.frame of 2 columns with term id and gene id;
 Geneset_name is a data.frame of 2 columns with term id and term description
 }
 \examples{
-\dontrun{
-x = getHgDisease(source = "do")
+\donttest{
+x = getHgDisease(source = "do", data_dir = tempdir())
 }
 }

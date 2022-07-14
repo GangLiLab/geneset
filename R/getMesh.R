@@ -8,18 +8,20 @@
 #' @param method Method of mapping MeSH ID to gene ID. Choose one from "gendoo", "gene2pubmed" or "RBBH" (mainly for some minor species).
 #' See also `mesh_metadata`.
 #' @param category MeSH descriptor categories from `mesh_metadata` (refer to: https://wikipedia.org/wiki/List_of_MeSH_codes).
+#' @param data_dir data saving location, default is the package data directory
 #' @importFrom dplyr %>% filter pull
 #'
 #' @return A list including geneset and geneset name.
 #' @export
 #' @examples
-#' \dontrun{
-#' x = getMesh(org = "human", method = "gendoo", category = "A")
+#' \donttest{
+#' x = getMesh(org = "human", method = "gendoo", category = "A", data_dir = tempdir())
 #' }
 getMesh <- function(org = 'human',
                     method = c('gendoo', 'gene2pubmed', 'RBBH'),
                     category = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L","M", "N", "Z"),
-                    download.method = NULL) {
+                    download.method = NULL,
+                    data_dir = NULL) {
 
   #--- args ---#
   method <-  match.arg(method); met <- method
@@ -37,8 +39,9 @@ getMesh <- function(org = 'human',
   if(!category %in% org_cates) stop(paste0('You have chosen organism "',org,'" and method "',met,
                                            '"\nNow please choose category from:\n', paste(org_cates,collapse = ' | ')))
 
-
-  data_dir <- tools::R_user_dir("geneset", which = "data")
+  if(is.null(data_dir)){
+    data_dir <- tools::R_user_dir("geneset", which = "data")
+  }
   sub_dir <- "/anno/mesh/"
   data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
@@ -72,7 +75,8 @@ getMesh <- function(org = 'human',
   res[[n]] = suppressWarnings(fst::read.fst(destfile))
 
   #--- add org for other use ---#
-  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
+  ensOrg_name <- ensOrg_name_data()
+  rm(ensOrg_name, envir = .genesetEnv)
   org2 <- geneset::mesh_org %>%
     dplyr::filter(mesh_org %in% org) %>%
     dplyr::pull(latin_full_name)

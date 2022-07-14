@@ -12,7 +12,8 @@ getMesh(
   method = c("gendoo", "gene2pubmed", "RBBH"),
   category = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
     "Z"),
-  download.method = NULL
+  download.method = NULL,
+  data_dir = NULL
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ See also `mesh_metadata`.}
 \item{category}{MeSH descriptor categories from `mesh_metadata` (refer to: https://wikipedia.org/wiki/List_of_MeSH_codes).}
 
 \item{download.method}{"auto" (as default if NULL), "wininet" (for windows)}
+
+\item{data_dir}{data saving location, default is the package data directory}
 }
 \value{
 A list including geneset and geneset name.
@@ -35,7 +38,7 @@ Geneset is a data.frame of 2 columns with term id and gene id;
 Geneset_name is a data.frame of 2 columns with term id and term description
 }
 \examples{
-\dontrun{
-x = getMesh(org = "human", method = "gendoo", category = "A")
+\donttest{
+x = getMesh(org = "human", method = "gendoo", category = "A", data_dir = tempdir())
 }
 }

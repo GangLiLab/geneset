@@ -1,39 +1,58 @@
 #############################
 ### Part I: organism name
 #############################
+.initial <- function() {
+  pos <- 1
+  envir <- as.environment(pos)
+  assign(".genesetEnv", new.env(), envir = envir)
+}
+
 go_org_data <- function() {
-  utils::data(list = "go_org", package = "geneset")
-  get("go_org", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "go_org", package = "geneset",envir = .genesetEnv)
+  get("go_org", envir = .genesetEnv)
 }
 
 kegg_org_data <- function() {
-  utils::data(list = "kegg_org", package = "geneset")
-  get("kegg_org", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "kegg_org", package = "geneset",envir = .genesetEnv)
+  get("kegg_org", envir = .genesetEnv)
+}
+
+ensOrg_name_data <- function() {
+  .initial()
+  utils::data(list = "ensOrg_name", package = "geneset",envir = .genesetEnv)
+  get("ensOrg_name", envir = .genesetEnv)
 }
 
 wiki_org_data <- function() {
-  utils::data(list = "wiki_org", package = "geneset")
-  get("wiki_org", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "wiki_org", package = "geneset",envir = .genesetEnv)
+  get("wiki_org", envir = .genesetEnv)
 }
 
 msigdb_org_data <- function() {
-  utils::data(list = "msigdb_org", package = "geneset")
-  get("msigdb_org", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "msigdb_org", package = "geneset",envir = .genesetEnv)
+  get("msigdb_org", envir = .genesetEnv)
 }
 
 reactome_org_data <- function() {
-  utils::data(list = "reactome_org", package = "geneset")
-  get("reactome_org", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "reactome_org", package = "geneset",envir = .genesetEnv)
+  get("reactome_org", envir = .genesetEnv)
 }
 
 mesh_org_data <- function() {
-  utils::data(list = "mesh_org", package = "geneset")
-  get("mesh_org", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "mesh_org", package = "geneset",envir = .genesetEnv)
+  get("mesh_org", envir = .genesetEnv)
 }
 
 org2cate_data <- function() {
-  utils::data(list = "org2cate", package = "geneset")
-  get("org2cate", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "org2cate", package = "geneset",envir = .genesetEnv)
+  get("org2cate", envir = .genesetEnv)
 }
 
 #############################
@@ -47,7 +66,7 @@ map_go_org <- function(org) {
   if (org == "rat" | org == "rn" | org == 'rattus norvegicus') org <- "rat"
 
   orgs <- go_org_data()
-  rm(go_org, envir = .GlobalEnv)
+  rm(go_org, envir = .genesetEnv)
   orgs <- apply(orgs, 2, tolower) %>% as.data.frame()
 
   if (org %in% orgs$common_name) {
@@ -77,7 +96,7 @@ map_kegg_org <- function(org) {
   if (org == "fruit fly" | org == "dm" | org == 'drosophila melanogaster') org <- "dme"
 
   orgs <- kegg_org_data()
-  rm(kegg_org, envir = .GlobalEnv)
+  rm(kegg_org, envir = .genesetEnv)
   orgs <- apply(orgs, 2, tolower) %>% as.data.frame()
 
   if (org %in% orgs$kegg_name) {
@@ -113,7 +132,7 @@ map_wiki_org <- function(org) {
   if (org == "fruit fly" | org == "dm") org <- "drosophila_melanogaster"
 
   orgs <- wiki_org_data()
-  rm(wiki_org, envir = .GlobalEnv)
+  rm(wiki_org, envir = .genesetEnv)
 
   if (org %in% tolower(orgs$latin_full_name)) {
     org <- gsub(' ','_',org)
@@ -147,7 +166,7 @@ map_msigdb_org <- function(org) {
   if (org == "fruit fly" | org == "dm") org <- "drosophila_melanogaster"
 
   orgs <- msigdb_org_data()
-  rm(msigdb_org, envir = .GlobalEnv)
+  rm(msigdb_org, envir = .genesetEnv)
 
   if (org %in% tolower(orgs$latin_full_name)) {
     org <- gsub(' ','_',org)
@@ -181,7 +200,7 @@ map_reactome_org <- function(org) {
   if (org == "fruit fly" | org == "dm") org <- "drosophila_melanogaster"
 
   orgs <- reactome_org_data()
-  rm(reactome_org, envir = .GlobalEnv)
+  rm(reactome_org, envir = .genesetEnv)
 
   if (org %in% tolower(orgs$latin_full_name)) {
     org <- gsub(' ','_',org)
@@ -215,7 +234,7 @@ map_mesh_org <- function(org) {
   if (org == "fruit fly" | org == "dm" | org == 'drosophila melanogaster') org <- "dme"
 
   orgs <- mesh_org_data()
-  rm(mesh_org, envir = .GlobalEnv)
+  rm(mesh_org, envir = .genesetEnv)
   # orgs$latin_full_name <- tolower(orgs$latin_full_name)
 
   if (org %in% orgs$mesh_org) {
@@ -257,14 +276,16 @@ map_enrichrdb_org <- function(org) {
 #############################
 #--- get Enrichrdb metadata ---#
 enrichr_data <- function() {
-  utils::data(list = "enrichr_metadata", package = "geneset")
-  get("enrichr_metadata", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "enrichr_metadata", package = "geneset", envir = .genesetEnv)
+  get("enrichr_metadata", envir = .genesetEnv)
 }
 
 #--- get MeSH metadata ---#
 mesh_data <- function() {
-  utils::data(list = "mesh_metadata", package = "geneset")
-  get("mesh_metadata", envir = .GlobalEnv)
+  .initial()
+  utils::data(list = "mesh_metadata", package = "geneset", envir = .genesetEnv)
+  get("mesh_metadata", envir = .genesetEnv)
 }
 
 #--- get web server file size ---#
@@ -360,7 +381,7 @@ web.url <- function(){
 }
 
 
-
+utils::globalVariables(c(".genesetEnv"))
 
 
 

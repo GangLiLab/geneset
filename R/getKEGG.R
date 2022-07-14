@@ -6,17 +6,19 @@
 #' @param category Choose one category from "pathway","module", "enzyme",
 #' 'disease' (human only),'drug' (human only) or 'network' (human only)
 #' @param download.method "auto" (as default if NULL), "wininet" (for windows)
+#' @param data_dir data saving location, default is the package data directory
 #' @importFrom dplyr %>% filter pull
 #'
 #' @return A list including geneset and geneset name.
 #' @export
 #' @examples
-#' \dontrun{
-#' x = getKEGG(org = "hsa",category = "pathway")
+#' \donttest{
+#' x = getKEGG(org = "hsa",category = "pathway", data_dir = tempdir())
 #' }
 getKEGG <- function(org = 'hsa',
                     category = c('pathway','module','enzyme','disease','drug','network'),
-                    download.method = NULL) {
+                    download.method = NULL,
+                    data_dir = NULL) {
 
   #--- args ---#
   category <- match.arg(category)
@@ -27,7 +29,9 @@ getKEGG <- function(org = 'hsa',
     stop(paste0('The categoty "',category, '" only support human...'))
   }
 
-  data_dir <- tools::R_user_dir("geneset", which = "data")
+  if(is.null(data_dir)){
+    data_dir <- tools::R_user_dir("geneset", which = "data")
+  }
   sub_dir <- "/anno/kegg/"
   data_dir <- paste0(data_dir, sub_dir)
   make_dir(data_dir)
@@ -48,7 +52,8 @@ getKEGG <- function(org = 'hsa',
   }
 
   #--- add org for other use ---#
-  tryCatch(utils::data(list="ensOrg_name", package="genekitr"))
+  ensOrg_name <- ensOrg_name_data()
+  rm(ensOrg_name, envir = .genesetEnv)
   org2 <- geneset::kegg_org %>%
     dplyr::filter(kegg_name %in% org) %>%
     dplyr::pull(latin_full_name)

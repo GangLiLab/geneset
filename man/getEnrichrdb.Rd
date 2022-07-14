@@ -8,7 +8,8 @@ Geneset is a data.frame of 2 columns with term id and gene id}
 getEnrichrdb(
   org = c("human", "fly", "yeast", "worm", "zebrafish"),
   library = NULL,
-  download.method = NULL
+  download.method = NULL,
+  data_dir = NULL
 )
 }
 \arguments{
@@ -17,6 +18,8 @@ getEnrichrdb(
 \item{library}{Choose one library name from `enrichr_metadata`.}
 
 \item{download.method}{"auto" (as default if NULL), "wininet" (for windows)}
+
+\item{data_dir}{data saving location, default is the package data directory}
 }
 \value{
 A list including geneset and geneset name.
@@ -26,7 +29,8 @@ Get EnrichrDB geneset and geneset_name
 Geneset is a data.frame of 2 columns with term id and gene id
 }
 \examples{
-\dontrun{
-x = getEnrichrdb(org = "human", library = "COVID-19_Related_Gene_Sets")
+\donttest{
+x = getEnrichrdb(org = "human", library = "COVID-19_Related_Gene_Sets",
+data_dir = tempdir())
 }
 }
