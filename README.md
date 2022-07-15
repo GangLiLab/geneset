@@ -28,7 +28,8 @@ It includes [GO](http://geneontology.org/) (BP, CC and MF), [KEGG](https://www.k
 - MsigDb supports **20** species
 - WikiPahtwaysupports **16** species
 - Reactome supports **11** species
-- Disease-related only support human 
+- EnrichrDB supports **5** species 
+- Disease-related only support **human** (DO, NCG, DisGeNET and COVID-19)
 
 #### About the data
 
