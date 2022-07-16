@@ -10,10 +10,9 @@
 #' @return A list including geneset and geneset name.
 #' @export
 #' @examples
-#' \donttest{
 #' x = getEnrichrdb(org = "human", library = "COVID-19_Related_Gene_Sets",
 #' data_dir = tempdir())
-#' }
+
 getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
                          library = NULL,
                          download.method = NULL,

@@ -57,13 +57,47 @@ remotes::install_github("GangLiLab/geneset")
 remotes::install_git("https://gitee.com/genekitr/pacakge_geneset")
 ```
 
+## 📚 Usage
 
+The package now includes eight functions: `getGO()`, `getKEGG()` , `getMesh()`, `getMsigdb()`, `getWiki()`, `getReactome()`, `getEnrichrdb()`, `getHgDisease()`
 
+All functions take  `org` (organism) as input. Several functions have unique argument such as `ont` (ontology) of `genGO()`.
 
+Take Human GO MF gene sets for example:
 
+```R
+library(geneset)
+x = getGO(org = "human",ont = "mf")
 
+str(x)
+# List of 4
+# $ geneset     :'data.frame':	280115 obs. of  2 variables:
+#   ..$ mf  : chr [1:280115] "GO:0000009" "GO:0000009" "GO:0000010" "GO:0000010" ...
+# ..$ gene: chr [1:280115] "PIGV" "ALG12" "PDSS1" "PDSS2" ...
+# $ geneset_name:'data.frame':	4878 obs. of  2 variables:
+#   ..$ go_id: chr [1:4878] "GO:0000009" "GO:0000010" "GO:0000014" "GO:0000016" ...
+# ..$ Term : chr [1:4878] "alpha-1,6-mannosyltransferase activity" "trans-hexaprenyltranstransferase activity" "single-stranded DNA endodeoxyribonuclease activity" "lactase activity" ...
+# $ organism    : chr "hsapiens"
+# $ type        : chr "mf"
 
+head(x$geneset)
+# mf  gene
+# GO:0000009  PIGV
+# GO:0000009 ALG12
+# GO:0000010 PDSS1
+# GO:0000010 PDSS2
+# GO:0000014 ENDOG
+# GO:0000014 ERCC1
 
+head(x$geneset_name)
+# go_id                                               Term
+# GO:0000009             alpha-1,6-mannosyltransferase activity
+# GO:0000010          trans-hexaprenyltranstransferase activity
+# GO:0000014 single-stranded DNA endodeoxyribonuclease activity
+# GO:0000016                                   lactase activity
+# GO:0000026             alpha-1,2-mannosyltransferase activity
+# GO:0000030                       mannosyltransferase activity
+```
 
 
 
