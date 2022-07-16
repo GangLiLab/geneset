@@ -29,8 +29,6 @@ Get EnrichrDB geneset and geneset_name
 Geneset is a data.frame of 2 columns with term id and gene id
 }
 \examples{
-\donttest{
 x = getEnrichrdb(org = "human", library = "COVID-19_Related_Gene_Sets",
 data_dir = tempdir())
-}
 }
