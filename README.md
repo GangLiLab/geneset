@@ -1,4 +1,4 @@
-# Genset
+# Geneset
 
 [![](https://img.shields.io/badge/devel%20version-0.2.6-green.svg)](https://github.com/GangLiLab/genekitr)  [![lifecycle](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) 
 
