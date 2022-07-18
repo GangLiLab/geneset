@@ -99,6 +99,16 @@ head(x$geneset_name)
 # GO:0000030                       mannosyltransferase activity
 ```
 
+##### How many terms/pathways in specific gene set?
+
+Take human KEGG Pathway as an example:
+
+```R
+gs <- geneset::getKEGG('hsa','pathway')
+table(gs$geneset$id) %>% length()
+# 347
+```
+
 
 
 
