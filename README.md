@@ -105,8 +105,24 @@ Take human KEGG Pathway as an example:
 
 ```R
 gs <- geneset::getKEGG('hsa','pathway')
-table(gs$geneset$id) %>% length()
+gs_df <- gs$geneset
+table(gs_df$id) %>% length()
 # 347
+```
+
+##### Pass gene set to GSVA/ssGSEA
+
+```R
+library(GSVA)
+# firstly turn gs to list
+gs_list <- split(gs_df$gene, gs_df$id)  
+
+# secondly, pass your expression dataset: "express_data" to gsva() function
+ssgsea_mat <- gsva(expr=express_data, 
+                 method="ssgsea", # "gsva"(default), "zscore", "plage"
+                 gset.idx.list=gs_list,  
+                 verbose=F, 
+                 parallel.sz = 4 )
 ```
 
 
