@@ -1,6 +1,6 @@
 # Geneset
 
-[![](https://img.shields.io/badge/devel%20version-0.2.6-green.svg)](https://github.com/GangLiLab/genekitr)  [![lifecycle](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) 
+[![CRANstatus](https://www.r-pkg.org/badges/version/geneset)](https://cran.r-project.org/package=geneset) [![](https://img.shields.io/badge/devel%20version-0.2.6-green.svg)](https://github.com/GangLiLab/genekitr) [![](https://cranlogs.r-pkg.org/badges/grand-total/geneset?color=orange)](https://cran.r-project.org/package=geneset) [![lifecycle](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) 
 
 ![Alt](https://repobeats.axiom.co/api/embed/1398fe8b05f49210229b9c8bca9b50a59337a7f7.svg "Repobeats analytics image")
 
@@ -39,7 +39,7 @@ We will follow a monthly-update frequency to make better user experience.
 
 ## 🛠 Installation
 
-#### (submitted to CRAN ...) Install stable version from CRAN:
+#### Install stable version from CRAN:
 
 ```
 install.packages("geneset")
@@ -114,10 +114,10 @@ table(gs_df$id) %>% length()
 
 ```R
 library(GSVA)
-# firstly turn gs to list
+# firstly: turn gs to list
 gs_list <- split(gs_df$gene, gs_df$id)  
 
-# secondly, pass your expression dataset: "express_data" to gsva() function
+# secondly: pass your expression dataset: "express_data" to gsva() function
 ssgsea_mat <- gsva(expr=express_data, 
                  method="ssgsea", # "gsva"(default), "zscore", "plage"
                  gset.idx.list=gs_list,  
