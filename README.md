@@ -1,6 +1,6 @@
 # Geneset
 
-[![CRANstatus](https://www.r-pkg.org/badges/version/geneset)](https://cran.r-project.org/package=geneset) [![](https://img.shields.io/badge/devel%20version-0.2.6-#479E69.svg)](https://github.com/GangLiLab/genekitr) [![](https://cranlogs.r-pkg.org/badges/grand-total/geneset?color=orange)](https://cran.r-project.org/package=geneset) [![lifecycle](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) 
+[![CRANstatus](https://www.r-pkg.org/badges/version/geneset)](https://cran.r-project.org/package=geneset) [![](https://img.shields.io/badge/devel%20version-0.2.6-green.svg)](https://github.com/GangLiLab/genekitr) [![](https://cranlogs.r-pkg.org/badges/grand-total/geneset?color=orange)](https://cran.r-project.org/package=geneset) [![lifecycle](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) 
 
 ![Alt](https://repobeats.axiom.co/api/embed/1398fe8b05f49210229b9c8bca9b50a59337a7f7.svg "Repobeats analytics image")
 
