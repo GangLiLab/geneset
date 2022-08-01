@@ -59,6 +59,8 @@ remotes::install_git("https://gitee.com/genekitr/pacakge_geneset")
 
 ## 📚 Usage
 
+> For more details, please refer to [genekitr book](https://www.genekitr.fun/get-gene-sets-1.html).
+
 The package now includes eight functions: `getGO()`, `getKEGG()` , `getMesh()`, `getMsigdb()`, `getWiki()`, `getReactome()`, `getEnrichrdb()`, `getHgDisease()`
 
 All functions take  `org` (organism) as input. Several functions have unique argument such as `ont` (ontology) of `genGO()`.
@@ -124,6 +126,18 @@ ssgsea_mat <- gsva(expr=express_data,
                  verbose=F, 
                  parallel.sz = 4 )
 ```
+
+##### Pass gene set to ORA/GSEA
+
+```R
+hg_gs <- geneset::getGO(org = "human",ont = "mf")
+# ORA
+go_ent <- genekitr::genORA(input_id, geneset = hg_gs)
+# GSEA (input is a pre-ranked gene list with logFC value)
+gse <- genGSEA(genelist = geneList, geneset = hg_gs)
+```
+
+
 
 ## ✍️ Author
 
