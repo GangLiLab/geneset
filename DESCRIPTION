@@ -1,7 +1,7 @@
 Package: geneset
 Type: Package
 Title: Get Gene Sets for Gene Enrichment Analysis
-Version: 0.2.6
+Version: 0.2.7
 Authors@R: 
     c(person(given = "Yunze",
              family = "Liu",
@@ -35,7 +35,7 @@ Imports:
     fst,
     stringi,
     stringr
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

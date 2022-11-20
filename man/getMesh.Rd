@@ -10,8 +10,7 @@ Geneset_name is a data.frame of 2 columns with term id and term description}
 getMesh(
   org = "human",
   method = c("gendoo", "gene2pubmed", "RBBH"),
-  category = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-    "Z"),
+  category = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Z"),
   download.method = NULL,
   data_dir = NULL
 )
