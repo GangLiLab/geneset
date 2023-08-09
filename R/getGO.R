@@ -57,7 +57,9 @@ getGO <- function(org = "human",
   add_org <- ensOrg_name %>%
     dplyr::filter(latin_full_name %in% org2) %>%
     dplyr::pull(latin_short_name)
-  if(length(add_org)==0) add_org = NA
+  if(length(add_org)==0){
+    add_org = org
+  }
 
   res$organism <- add_org
 
