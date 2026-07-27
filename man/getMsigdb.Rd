@@ -2,8 +2,7 @@
 % Please edit documentation in R/getMsigdb.R
 \name{getMsigdb}
 \alias{getMsigdb}
-\title{Get MsigDb geneset and geneset_name
-Geneset is a data.frame of 2 columns with term id and gene id}
+\title{Get MSigDB geneset and geneset_name}
 \usage{
 getMsigdb(
   org = "human",
@@ -18,10 +17,9 @@ getMsigdb(
 \arguments{
 \item{org}{Organism name from `msigdb_org`.}
 
-\item{category}{Choose one of "H", "C1", "C2-CGP", "C2-CP-BIOCARTA", "C2-CP-KEGG", "C2-CP-PID",
-"C2-CP-REACTOME", "C2-CP-WIKIPATHWAYS", "C3-MIR-MIRDB","C3-MIR-MIR_Legacy", "C3-TFT-GTRD",
-"C3-TFT-TFT_Legacy","C4-CGN", "C4-CM", "C5-GO-BP", "C5-GO-CC", "C5-GO-MF","C5-HPO", "C6",
-"C7-IMMUNESIGDB", "C7-VAX", "C8" (refer to: http://www.gsea-msigdb.org/gsea/msigdb/collections.jsp)}
+\item{category}{MSigDB collection/subcollection name. Existing Human
+collection names remain supported; native Mouse collection names such
+as "MH", "M1", "M2-CP-REACTOME" and "M5-GO-BP" are also supported.}
 
 \item{download.method}{"auto" (as default if NULL), "wininet" (for windows)}
 
@@ -31,11 +29,27 @@ getMsigdb(
 A list including geneset.
 }
 \description{
-Get MsigDb geneset and geneset_name
-Geneset is a data.frame of 2 columns with term id and gene id
+Geneset is a data.frame of 2 columns with term id and gene id.
+The function keeps the original public interface and automatically
+distinguishes Human MSigDB collections from native Mouse MSigDB
+collections by `category`.
+}
+\details{
+Human MSigDB collections (e.g. H, C1, C2-CP-REACTOME, C5-GO-BP) may contain ortholog-converted
+data for species supported by `msigdb_org`.
+
+Native Mouse MSigDB collections (e.g. MH, M1, M2-CP-REACTOME,
+M5-GO-BP) are only support Mus musculus.
 }
 \examples{
 \donttest{
-x = getMsigdb(org = "human", category = "H", data_dir = tempdir())
+# Human native Hallmark
+x <- getMsigdb(org = "human", category = "H", data_dir = tempdir())
+
+# Human MSigDB converted to mouse orthologs
+x <- getMsigdb(org = "mouse", category = "H", data_dir = tempdir())
+
+# Native Mouse MSigDB
+x <- getMsigdb(org = "mouse", category = "MH", data_dir = tempdir())
 }
 }
