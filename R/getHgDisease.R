@@ -59,7 +59,7 @@ getHgDisease <- function(source = c('do','disgenet','ncg_v7','ncg_v6','covid19')
                      data_dir, web_f_size, local_f_size)
     res[[i]] = suppressMessages(fst::read.fst(destfile))
   }else{
-    res[['geneset_name']] <- NA
+    res[['geneset_name']] <- data.frame(term = character(0), name = character(0), stringsAsFactors = FALSE)
   }
 
   #--- add org for other use ---#
