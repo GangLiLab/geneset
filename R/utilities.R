@@ -467,10 +467,11 @@ geneset_download <- function(url, destfile, data_dir,
 
   if (!ok) {
     if (!local_exists) {
-      message(
-        "No valid local cache is available.\n",
+      stop(
+        "Download failed and no local cache is available.\n",
         "Please download manually via: ", url, "\n",
-        "Then save to: ", destfile
+        "Then save to: ", destfile,
+        call. = FALSE
       )
     }
     return(invisible(FALSE))

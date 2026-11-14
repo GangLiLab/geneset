@@ -26,7 +26,7 @@ getKEGG <- function(org = 'hsa',
 
   # category <- tolower(category)
   if(category %in% c('disease','drug','network') & org != 'hsa'){
-    stop(paste0('The categoty "',category, '" only support human...'))
+    stop(paste0('The category "',category, '" only supports human...'))
   }
 
   if(is.null(data_dir)){
@@ -41,7 +41,7 @@ getKEGG <- function(org = 'hsa',
   for(i in c("geneset","geneset_name")){
     # i = 'geneset'
     url <- paste0(web.url(),sub_dir,category,'/',org,"_",i,".fst")
-    destfile <- paste0(data_dir, "/", org, "_",i,".fst")
+    destfile <- paste0(data_dir, "/", org, "_", category, "_", i, ".fst")
     web_f_size <- check_web_size(url)
     local_f_size <- file.size(destfile)
     if(is.na(local_f_size)) local_f_size = 0

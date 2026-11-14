@@ -172,7 +172,7 @@ getMsigdb <- function(org = 'human',
   #------------------------------#
   res <- list()
   res[["geneset"]] <- geneset
-  res[["geneset_name"]] <- NA
+  res[["geneset_name"]] <- data.frame(term = character(0), name = character(0), stringsAsFactors = FALSE)
 
   # Add organism for other use, preserving the original output behavior.
   ensOrg_name <- ensOrg_name_data()

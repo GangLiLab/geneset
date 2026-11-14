@@ -50,7 +50,7 @@ getEnrichrdb <- function(org = c('human','fly','yeast','worm','zebrafish'),
     res[[i]] = suppressWarnings(fst::read.fst(destfile))
   }
 
-  res[['geneset_name']] <- NA
+  res[['geneset_name']] <- data.frame(term = character(0), name = character(0), stringsAsFactors = FALSE)
 
   #--- add org for other use ---#
   ensOrg_name <- ensOrg_name_data()
